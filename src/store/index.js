@@ -16,6 +16,9 @@ export default new Vuex.Store({
     },
     setTarea(state, payload){
       state.tarea = payload
+    },
+    setEliminarTarea(state, payload){
+      state.tareas = state.tareas.filter( item => item.id !==payload )
     }
   },
   actions: {
@@ -50,6 +53,23 @@ export default new Vuex.Store({
         .then(() => {
           console.log('Tarea editada')
           router.push('/')
+        })
+    },
+    agregarTarea({commit}, nombreTarea){
+      db.collection('tareas').add({
+        nombre: nombreTarea
+      })
+        .then(doc => {
+          //console.log(doc.id)
+          router.push('/')
+        })
+    },
+    eliminarTarea({commit, dispatch}, idTarea){
+      db.collection('tareas').doc(idTarea).delete()
+        .then(() => {
+          console.log('Tarea eliminada.')
+          //dispatch('getTareas') // esta es una opción pero no es la mejor, por eso queda comentada.
+          commit('setEliminarTarea', idTarea)
         })
     }
   },

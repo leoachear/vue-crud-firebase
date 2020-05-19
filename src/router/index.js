@@ -13,6 +13,11 @@ Vue.use(VueRouter)
     path: '/editar/:id',
     name: 'Editar',
     component: () => import(/* webpackChunkName: "editar" */ '../views/Editar.vue')
+  },
+  {
+    path: '/agregar/',
+    name: 'Agregar',
+    component: () => import(/* webpackChunkName: "agregar" */ '../views/Agregar.vue')
   }
 ]
 
